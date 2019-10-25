@@ -5,3 +5,44 @@
 
 程序：
 一个递归，递归终止条件是n=1，每一个子函数，将由其他函数生成的字符串（也即上一个整数），“读”出来
+
+# 战胜93.02%
+class Solution(object):
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        #用哨兵少做一次比较，对于小于等于0的情况，统一返回‘’
+        # 变量命名不能与系统函数名称重复
+        # 注意不同变量之间，命名不能重复
+        # 从1开始生成，而不是直接递归
+        count_dy = 1
+        target_str=''
+        while count_dy<=n:
+            target_str=self.continue_string(count_dy,target_str)
+            count_dy+=1
+
+        return target_str
+
+
+    def continue_string(self,n,str_list):
+        # 读法的关键在于识别连续字符串
+        # 字符串中的数两两对比吧
+        if n==1:
+            return '1'
+        else:
+            c = ''
+            k = 0
+            count = 1
+            # 再加个哨兵，处理边界问题
+            str_len=len(str_list)
+            str_list+='9'
+            while k <= str_len - 1:
+                if str_list[k] == str_list[k + 1]:
+                    count += 1
+                else:
+                    c += str(count) + str_list[k]
+                    count = 1
+                k += 1
+            return c
