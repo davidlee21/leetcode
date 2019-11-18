@@ -1,0 +1,50 @@
+# 1.删除节点
+# 请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点，你将只被给定要求被删除的节点。
+# 会传给我一个节点，然后让我在链表中，删除给出的这个节点，我只需要定义删除操作
+# 即，在链表中查找该节点的操作，会由其他模块完成，他们在查找到后，要执行我的函数，来去进行删除
+# 即，他们要继承我的类
+
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
+class Solution:
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+        """
+        # 将当前节点值，换成它的next节点的节点值
+        # 再删除原有的next节点
+        node.val = node.next.val
+        node.next = node.next.next
+        
+# 2.给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+# 进阶：
+#
+# 你能尝试使用一趟扫描实现吗？
+
+
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        # 在头部加哨兵，以应付删除头结点的情况
+        nullnode=ListNode(-1)
+        nullnode.next=head
+        node=head
+        l=[nullnode,head]
+        # 遍历链表的节点，并储存他们的指针
+        while node.next!=None:
+            l.append(node.next)
+            node=node.next
+        deletenodeup=l[-n-1]
+        deletenodeup.next=deletenodeup.next.next
+        return nullnode.next
+
+
