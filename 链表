@@ -47,4 +47,34 @@ class Solution(object):
         deletenodeup.next=deletenodeup.next.next
         return nullnode.next
 
+# 3.反转一个单链表。
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head==None or head.next==None:
+            return head
+        
+
+        if head.next.next==None:
+            head.next.next=head
+            newhead=head.next
+            head.next=None
+            #返回新的头结点             
+            return newhead
+        else:
+            newhead=self.reverseList(head.next)
+
+        
+        if head.next.next==None:
+            head.next.next=head
+            head.next=None
+        return newhead
